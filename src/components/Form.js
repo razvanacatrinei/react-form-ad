@@ -1,26 +1,116 @@
 import React, { Component } from "react";
-import Image from "./Image";
+
+import { Button } from "@material-ui/core";
 
 import styles from "./Form.module.css";
 
+const initialState = {
+  title: "",
+  description: "",
+  photos: "",
+  rooms: "",
+  address: "",
+  price: "",
+  phone: "",
+  titleError: "",
+  descriptionError: "",
+  addressError: "",
+  priceError: "",
+  phoneError: "",
+};
+
 class Form extends Component {
-  state = {
-    title: "",
-    description: "",
-    photos: "",
-    rooms: "",
-    address: "",
-    price: "",
-    phone: "",
-  };
+  state = initialState;
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  validate = () => {
+    let titleError = "";
+    let descriptionError = "";
+    let addressError = "";
+    let priceError = "";
+    let phoneError = "";
+
+    if (!this.state.title) {
+      titleError = "Title is required!";
+    }
+
+    if (!this.state.description) {
+      descriptionError = "Description is required!";
+    }
+
+    if (!this.state.address) {
+      addressError = "Address is required!";
+    }
+
+    if (!this.state.price) {
+      priceError = "Price is required!";
+    }
+
+    if (!this.state.phone) {
+      phoneError = "Phone number is required!";
+    } else if (this.state.phone.length < 10) {
+      phoneError = "Phone number is too short";
+    } else if (this.state.phone.length > 10) {
+      phoneError = "Phone number is too long";
+    }
+
+    if (
+      titleError ||
+      descriptionError ||
+      addressError ||
+      priceError ||
+      phoneError
+    ) {
+      this.setState({
+        titleError,
+        descriptionError,
+        addressError,
+        priceError,
+        phoneError,
+      });
+      return false;
+    }
+    return true;
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    const isValid = this.validate();
+    if (isValid) {
+      console.log(this.state);
+      alert("Your Ad was successfull created!");
+      this.setState(initialState);
+    }
+  };
+
+  onChangeHandler = (event) => {
+    let files = event.target.files;
+    if (this.minSelectedFiles(event)) {
+      this.setState({
+        photos: files,
+      });
+    }
+  };
+
+  onClickHandler = () => {
+    const data = new FormData();
+    for (let x = 0; x < this.state.photos.length; x++) {
+      data.append("file", this.state.photos[x]);
+    }
+  };
+
+  minSelectedFiles = (event) => {
+    let files = event.target.files;
+    if (files.length < 2) {
+      const msg = "Atleast 2 photos are required!";
+      event.target.value = null;
+      alert(msg);
+      return false;
+    }
+    return true;
   };
 
   render() {
@@ -33,6 +123,7 @@ class Form extends Component {
           onChange={this.handleChange}
           maxLength={150}
         />
+        <div className={styles.error}>{this.state.titleError}</div>
         <textarea
           name="description"
           placeholder="Description..."
@@ -40,22 +131,37 @@ class Form extends Component {
           onChange={this.handleChange}
           maxLength={500}
         />
-        <select
-          name="rooms"
-          value={this.state.rooms}
-          onChange={this.handleChange}
-        >
-          <option>1 Room</option>
-          <option>2 Rooms</option>
-          <option>3 Rooms</option>
-        </select>
-        <div
-          className={styles.image}
-          name="photos"
-          value={this.state.photos}
-          onChange={this.handleChange}
-        >
-          <Image />
+        <div className={styles.error}>{this.state.descriptionError}</div>
+        <div className={styles.select}>
+          <label>Select a number of rooms:</label>
+          <select
+            name="rooms"
+            required
+            value={this.state.rooms}
+            onChange={this.handleChange}
+          >
+            <option disabled></option>
+            <option>1 Room</option>
+            <option>2 Rooms</option>
+            <option>3 Rooms</option>
+          </select>
+          <div className={styles.error}>{this.state.roomsError}</div><div className={styles.error}>{this.state.roomsError}</div>
+        </div>
+        <div className={styles.image}>
+          <input
+            type="file"
+            name="photos"
+            multiple
+            onChange={this.onChangeHandler}
+            className={styles.upload}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.onClickHandler}
+          >
+            Upload
+          </Button>
         </div>
         <input
           name="address"
@@ -63,20 +169,28 @@ class Form extends Component {
           value={this.state.address}
           onChange={this.handleChange}
         />
+        <div className={styles.error}>{this.state.addressError}</div>
         <div className={styles.contact}>
-          <input
-            name="price"
-            placeholder="Price"
-            value={this.state.price}
-            onChange={this.handleChange}
-          />
-          <input
-            name="phone"
-            placeholder="Phone Number"
-            type="number"
-            value={this.state.phone}
-            onChange={this.handleChange}
-          />
+          <div className={styles.left}>
+            <input
+              name="price"
+              type="number"
+              placeholder="Price"
+              value={this.state.price}
+              onChange={this.handleChange}
+            />
+            <div className={styles.error}>{this.state.priceError}</div>
+          </div>
+          <div className={styles.right}>
+            <input
+              name="phone"
+              placeholder="Phone Number"
+              type="number"
+              value={this.state.phone}
+              onChange={this.handleChange}
+            />
+            <div className={styles.error}>{this.state.phoneError}</div>
+          </div>
         </div>
         <button type="submit">Submit</button>
       </form>
