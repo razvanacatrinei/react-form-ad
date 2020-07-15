@@ -53,7 +53,6 @@ class Form extends Component {
           className={styles.image}
           name="photos"
           value={this.state.photos}
-          onChange={this.handleChange}
         >
           <Image />
         </div>
