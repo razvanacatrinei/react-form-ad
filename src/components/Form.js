@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Image from './Image'
 
 
-import "./Form.css";
+import styles from './Form.module.css'
 
 class Form extends Component {
   state = {
@@ -50,7 +50,7 @@ class Form extends Component {
           <option>2 Rooms</option>
           <option>3 Rooms</option>
         </select>
-        <div className="image">
+        <div className={styles.image} name="photos" value={this.state.photos} onChange={this.handleChange}>
           <Image />
         </div>
         <input
