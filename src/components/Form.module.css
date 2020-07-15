@@ -42,7 +42,7 @@ select {
     font-size: 14px;
 }
 
-button {
+button[type="submit"] {
     background: #ec5990;
     color: white;
     text-transform: uppercase;
@@ -51,14 +51,11 @@ button {
     padding: 20px;
     font-size: 16px;
     font-weight: 100;
-    letter-spacing: 10px;  
-}
-
-button {
+    letter-spacing: 10px;
     display: block;
     appearance: none;
     border-radius: 4px;
-    width: 100%;
+    width: 100%;  
 }
 
  
@@ -74,9 +71,6 @@ button:hover {
     transition: 0.3s all;
 }
 
-button {
-    -webkit-appearance: none;
-}
 
 .image {
     border: 1px solid white;
@@ -85,4 +79,16 @@ button {
     background-color: turquoise;
     font-size: 16px;
     color: black;
+}
+
+.contact {
+    display: flex;
+}
+
+.contact :first-child {
+    margin-right: 5px;
+}
+
+.contact :nth-child(2) {
+    margin-left: 5px;
 }

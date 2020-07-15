@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Image from './Image'
+import Image from "./Image";
 
-
-import "./Form.css";
+import styles from "./Form.module.css";
 
 class Form extends Component {
   state = {
@@ -50,7 +49,12 @@ class Form extends Component {
           <option>2 Rooms</option>
           <option>3 Rooms</option>
         </select>
-        <div className="image">
+        <div
+          className={styles.image}
+          name="photos"
+          value={this.state.photos}
+          onChange={this.handleChange}
+        >
           <Image />
         </div>
         <input
@@ -59,19 +63,21 @@ class Form extends Component {
           value={this.state.address}
           onChange={this.handleChange}
         />
-        <input
-          name="price"
-          placeholder="Price"
-          value={this.state.price}
-          onChange={this.handleChange}
-        />
-        <input
-          name="phone"
-          placeholder="Phone Number"
-          type="number"
-          value={this.state.phone}
-          onChange={this.handleChange}
-        />
+        <div className={styles.contact}>
+          <input
+            name="price"
+            placeholder="Price"
+            value={this.state.price}
+            onChange={this.handleChange}
+          />
+          <input
+            name="phone"
+            placeholder="Phone Number"
+            type="number"
+            value={this.state.phone}
+            onChange={this.handleChange}
+          />
+        </div>
         <button type="submit">Submit</button>
       </form>
     );

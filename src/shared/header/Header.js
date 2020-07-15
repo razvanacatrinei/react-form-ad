@@ -1,13 +1,16 @@
 import React from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Button } from "@material-ui/core";
 
 const Header = (props) => {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
-        <Typography variant="h6" color="inherit">
-          Rentals
-        </Typography>
+        <Button variant="contained" color="default" style={{marginRight:"10px"}}>
+          Create
+        </Button>
+        <Button variant="contained" color="default">
+          View
+        </Button>
       </Toolbar>
     </AppBar>
   );
