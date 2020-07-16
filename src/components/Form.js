@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import { Button } from "@material-ui/core";
-
 import styles from "./Form.module.css";
 
 const initialState = {
@@ -95,13 +93,6 @@ class Form extends Component {
     }
   };
 
-  onClickHandler = () => {
-    const data = new FormData();
-    for (let x = 0; x < this.state.photos.length; x++) {
-      data.append("file", this.state.photos[x]);
-    }
-  };
-
   minSelectedFiles = (event) => {
     let files = event.target.files;
     if (files.length < 2) {
@@ -155,13 +146,6 @@ class Form extends Component {
             onChange={this.onChangeHandler}
             className={styles.upload}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.onClickHandler}
-          >
-            Upload
-          </Button>
         </div>
         <input
           name="address"
