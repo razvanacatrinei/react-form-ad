@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 
-<<<<<<< HEAD
-=======
-import { Button } from "@material-ui/core";
-
->>>>>>> e26f3312fe0270249d9307399d704919d63d13b3
 import styles from "./Form.module.css";
 
 const initialState = {
@@ -151,16 +146,6 @@ class Form extends Component {
             onChange={this.onChangeHandler}
             className={styles.upload}
           />
-<<<<<<< HEAD
-=======
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.onClickHandler}
-          >
-            Upload
-          </Button>
->>>>>>> e26f3312fe0270249d9307399d704919d63d13b3
         </div>
         <input
           name="address"
